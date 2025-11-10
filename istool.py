@@ -8,7 +8,7 @@ import plistlib
 
 class SerialGenerator:
     def __init__(self):
-        self.name = "OpenCore Serial Generator"
+        self.name = "IsTool - iService fixer"
         self.line_count = 0
         self.max_lines = 24
 
@@ -28,7 +28,6 @@ class SerialGenerator:
         self.line_count += 3
 
     def cls(self):
-        """Clear screen and reset line count"""
         if platform.system() == "Darwin":
             os.system("clear")
         else:
@@ -36,7 +35,6 @@ class SerialGenerator:
         self.line_count = 0
 
     def print(self, text):
-        """Print text with line counting and auto-clear if needed"""
         if self.line_count >= self.max_lines:
             self.cls()
             self.head()
@@ -44,7 +42,6 @@ class SerialGenerator:
         self.line_count += 1
 
     def checkRequirements(self):
-        """Verify all required modules are available"""
         self.head("Checking Requirements")
         try:
             import plistlib
@@ -61,7 +58,6 @@ class SerialGenerator:
             sys.exit(1)
 
     def checkForMacserial(self):
-        """Verify macserial is available, download if necessary"""
         self.head("Checking for macserial")
         homeDirectory = os.path.expanduser("~")
         opencoreDirectory = os.path.join(homeDirectory, "OpenCorePkg")
@@ -96,7 +92,6 @@ class SerialGenerator:
             return True
 
     def generateSerialInfo(self):
-        """Generate serial number, MLB, MAC address, ROM, and UUID"""
         self.head("Generating Serial Info")
         model = input("Enter SystemProductName from config.plist (e.g., iMac19,1): ").strip()
         
@@ -171,7 +166,6 @@ class SerialGenerator:
         return serialNumber, mlbNumber, macAddress, romValue, uuidValue
 
     def updateConfigFile(self, configPath, serialNumber, mlbNumber, romValue, uuidValue):
-        """Update config.plist with generated values"""
         self.head("Updating Config File")
         try:
             with open(configPath, 'rb') as file:
@@ -204,13 +198,11 @@ class SerialGenerator:
             return False
 
     def cleanDragAndDropPath(self, path):
-        """Clean path from drag and drop input, handling escaped spaces"""
         cleanedPath = path.strip().strip('"')
         cleanedPath = cleanedPath.replace('\\ ', ' ')
         return cleanedPath
 
     def main(self):
-        """Main execution function"""
         self.checkRequirements()
 
         self.cls()

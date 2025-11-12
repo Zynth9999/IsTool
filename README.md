@@ -29,3 +29,4 @@ Then run ```./IsTool.command``` or open with finder.
 ## Thanks to:
 
 * acidanthera for [macserial](https://github.com/acidanthera/macserial), the Mac serial number generator
+* corpnewt for [genSMBIOS](https://github.com/corpnewt/GenSMBIOS), for the cool header generation and `.command` runner
